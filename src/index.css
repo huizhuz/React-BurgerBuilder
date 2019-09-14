@@ -1,0 +1,8 @@
+body {
+  margin: 0;
+  /* font-family: 'Teko', sans-serif; */
+  font-family: 'Saira Extra Condensed', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
