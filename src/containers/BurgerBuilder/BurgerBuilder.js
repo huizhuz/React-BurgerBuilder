@@ -73,24 +73,36 @@ class BurgerBuilder extends Component {
         this.setState({ ordering: false })
     }
     continue = () => {
-        const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice,
-            customer: {
-                name: 'Marina',
-                address: {
-                    street: '5535 Love St',
-                    zipCode: '71251',
-                    country: 'USA',
-                },
-                email: 'marina@outlook.com',
-            },
-            deliverMethod: 'fastest'
+        let queryParams= [];
+        for(let each in this.state.ingredients) {
+            queryParams.push(encodeURIComponent(each)+'='+encodeURIComponent(this.state.ingredients[each]))
         }
-        this.setState({ loading: true })
-        axios.post('/orders.json', order)
-            .then(res => { this.setState({ loading: false }); this.hide() })
-            .catch(err => this.setState({ loading: false }))
+        queryParams.push('price='+this.state.totalPrice)
+        let queryString = queryParams.join('&')
+        this.props.history.push({
+            pathname:'/checkout',
+            search: '?'+ queryString
+        })
+
+        // DIRECTLY TO FIREBASE
+        // const order = {
+        //     ingredients: this.state.ingredients,
+        //     price: this.state.totalPrice,
+        //     customer: {
+        //         name: 'Marina',
+        //         address: {
+        //             street: '5535 Love St',
+        //             zipCode: '71251',
+        //             country: 'USA',
+        //         },
+        //         email: 'marina@outlook.com',
+        //     },
+        //     deliverMethod: 'fastest'
+        // }
+        // this.setState({ loading: true })
+        // axios.post('/orders.json', order)
+        //     .then(res => { this.setState({ loading: false }); this.hide() })
+        //     .catch(err => this.setState({ loading: false }))
     }
 
     render() {
